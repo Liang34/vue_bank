@@ -76,6 +76,13 @@ export default {
       // 发送ajax检验密码
       const res = await checkPassword(this.$route.params.id, this.password)
       if (res.code === '0') {
+        if (res.msg === '2') {
+          this.$alert('该卡已经被冻结，你可以进行存钱，请联系管理员', '冻结', {
+            confirmButtonText: '确定'
+          })
+          sessionStorage.setItem('dongjie', true)
+          this.$router.replace('/main')
+        }
         // 存储姓名
         // sessionStorage.setItem('Dname', res.data.Dname)
         this.$router.replace('/main')

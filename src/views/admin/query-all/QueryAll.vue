@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <el-button @click="back">&lt;返回</el-button>
     <el-table
     :data="tableData"
     height="500px"
@@ -59,17 +60,17 @@ export default {
   data () {
     return {
       tableData: [
-        {
-          dno: '603604', // 储户编号
-          dname: '111111', // 姓名
-          didcard: '11111111111111111111', // 身份证
-          daddress: '广东省广州市广东省广州市', // 地址
-          dphone: '11111111111', // 联系电话
-          dsex: '男',
-          bno: '111111111111111',
-          btype: '活期用户',
-          status: '正常'
-        }
+        // {
+        //   dno: '603604', // 储户编号
+        //   dname: '111111', // 姓名
+        //   didcard: '11111111111111111111', // 身份证
+        //   daddress: '广东省广州市广东省广州市', // 地址
+        //   dphone: '11111111111', // 联系电话
+        //   dsex: '男',
+        //   bno: '111111111111111',
+        //   btype: '活期用户',
+        //   status: '正常'
+        // }
       ]
     }
   },
@@ -84,7 +85,7 @@ export default {
         obj.didcard = userArray[i].didcard
         obj.daddress = userArray[i].daddress
         obj.dphone = userArray[i].dphone
-        obj.dsex = userArray[i].dsex === 'true' ? '男' : '女'
+        obj.dsex = userArray[i].dsex === true ? '男' : '女'
         obj.bno = userArray[i].bno
         obj.btype = userArray[i].btype
         if (userArray[i].status === '0') {
@@ -98,6 +99,11 @@ export default {
         }
         this.tableData.push(obj)
       }
+    }
+  },
+  methods: {
+    back () {
+      this.$router.back()
     }
   }
 }
@@ -116,5 +122,10 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
+}
+.el-button {
+  position: relative;
+  right: 45%;
+  top: 8%;
 }
 </style>

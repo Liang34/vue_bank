@@ -111,7 +111,7 @@ export default {
         // 将目标账号存到本地
         sessionStorage.setItem('transAccount', this.account)
         // 存储开户行
-        if (res.data.Bank && res.data.Bank === '中国建设银行') {
+        if (res.data.bank && res.data.bank === '中国建设银行') {
           sessionStorage.setItem('transIsBank', true)
         } else {
           sessionStorage.setItem('transIsBank', false)

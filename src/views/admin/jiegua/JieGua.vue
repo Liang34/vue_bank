@@ -50,10 +50,11 @@ export default {
 </script>
 <style lang='scss' scoped>
 .warp {
-  height: 870px;
+  height: 650px;
   background: url("../admin.png") no-repeat;
   background-size: 100%;
   text-align: center;
+  overflow: hidden;
 }
 .title {
   color: #fcfcfc;

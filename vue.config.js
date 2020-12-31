@@ -4,7 +4,7 @@ module.exports = {
         proxy:{
             // 代理的
             '/api':{
-                target: 'http://6zjm8j.natappfree.cc', // 代理的基础路径
+                target: 'http://9t6g9w.natappfree.cc', // 代理的基础路径
                 changeOrigin:true,
                 pathRewrite:{
                     '^/api':''

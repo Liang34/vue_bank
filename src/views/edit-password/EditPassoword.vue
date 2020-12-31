@@ -6,7 +6,7 @@
     <el-main>
         <h3>请输入旧密码</h3>
         <span>Please Input The Old Password</span>
-        <el-input v-model="password" placeholder="请输入旧密码" oninput="value=value.replace(/[^\d]/g,'')"></el-input>
+        <el-input v-model="password" placeholder="请输入旧密码" oninput="value=value.replace(/[^\d]/g,'')" type="password"></el-input>
     </el-main>
       <el-button @click="comfirm" class="right">确认</el-button>
   </el-container>

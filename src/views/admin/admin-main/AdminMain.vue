@@ -102,6 +102,12 @@ export default {
   margin-left: 20px;
   opacity: .9;
   font-size: 20px;
+  transition: all .5s;
+}
+.card:hover {
+  background-color: black;
+  color: #fcfcfc;
+  transform: rotate(360deg);
 }
 .img {
   background: url('./user.png') no-repeat;

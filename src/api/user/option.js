@@ -3,14 +3,14 @@
  */
 import ajax from '../ajax'
 // 查询余额
-export const queryBalance = () => ajax('/api/queryBalance', {}, 'POST')
+export const queryBalance = () => ajax('/queryBalance', {}, 'POST')
 // 存款
-export const deposit = depositAmount => ajax('/api/deposit', { depositAmount }, 'GET')
+export const deposit = depositAmount => ajax('/deposit', { depositAmount }, 'GET')
 // 取款
-export const withdrawal = (withdrawalAmount, poundage) => ajax('/api/withdrawal', { withdrawalAmount, poundage }, 'GET')
+export const withdrawal = (withdrawalAmount, poundage) => ajax('/withdrawal', { withdrawalAmount, poundage }, 'GET')
 // 转账
-export const trasform = (arriveTime, cash, transAccount, poundage) => ajax('/api/transform', { arriveTime, cash, transAccount, poundage }, 'GET')
+export const trasform = (arriveTime, cash, transAccount, poundage) => ajax('/transform', { arriveTime, cash, transAccount, poundage }, 'GET')
 // 修改密码
-export const resetPassword = newPassword => ajax('/api/resetPassword', { newPassword }, 'GET')
+export const resetPassword = newPassword => ajax('/resetPassword', { newPassword }, 'GET')
 // 历史交易记录
-export const queryTrans = (time) => ajax('/api/queryTrans', { time }, 'GET')
+export const queryTrans = (time) => ajax('/queryTrans', { time }, 'GET')

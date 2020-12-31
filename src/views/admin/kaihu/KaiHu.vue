@@ -86,6 +86,12 @@ export default {
   methods: {
     // (dname, didcard, dsex, dphone, daddress)
     async submitForm () {
+      if (this.DForm.Dname === '' || this.DForm.Didcard === '' || this.DForm.Dsex === '' || this.DForm.Dphone === '' || this.DForm.Daddress === '') {
+        this.$alert('请确保表单上的内容已填写', 'error', {
+          confirmButtonText: '确定'
+        })
+        return
+      }
       this.DForm.Dsex = this.DForm.Dsex === '男' ? 'true' : 'false'
       const res = await openAccount(this.DForm.Dname, this.DForm.Didcard, this.DForm.Dsex, this.DForm.Dphone, this.DForm.Daddress)
       if (res.code === '0') {
@@ -119,10 +125,14 @@ export default {
       }
       const res = await openCard(this.dno, this.bpassword, this.btype)
       if (res.code === '0') {
-        this.$alert('成功创建用户', 'success', {
+        this.$alert(`成功创建用户,该用户的卡号为${res.data}`, 'success', {
           confirmButtonText: '确定'
         })
         this.$router.replace('/adminMain')
+      } else {
+        this.$alert(res.msg, 'error', {
+          confirmButtonText: '确定'
+        })
       }
     },
     reset () {

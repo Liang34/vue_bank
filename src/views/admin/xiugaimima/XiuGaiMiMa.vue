@@ -80,6 +80,10 @@ export default {
         this.$alert('修改密码成功', 'success', {
           confirmButtonText: '确定'
         })
+      } else {
+        this.$alert(res.msg, 'error', {
+          confirmButtonText: '确定'
+        })
       }
     }
   }
