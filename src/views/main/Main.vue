@@ -53,7 +53,7 @@ export default {
       this.$router.push('/queryBalance')
     },
     queryTrans () {
-      this.$router.push('/queryTrans')
+      this.$router.push('/queryTrans/details')
     },
     editPassowrd () {
       this.$router.push('/editPassowrd')

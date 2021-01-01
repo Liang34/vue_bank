@@ -12,14 +12,15 @@ export const openCard = (dno, bpassword, btype) => ajax('/admin/bankcardInfo', {
 // export const frozen = (bno, didcard) => ajax('/admin/frozen', { bno, didcard }, 'GET')
 // // 解冻
 // export const fsolution = (bno, didcard) => ajax('/admin/frozen', { bno, didcard }, 'GET')
-export const updateState = (bno, didcard, status) => ajax('/admin/updateStatus', { bno, didcard, status }, 'GET')
+// 0,1,guashi2,dongjie3,xiaohu
+export const updateState = (bno, status) => ajax('/admin/updateStatus', { bno, status }, 'GET')
 // 修改密码
 export const queryUserInfo = bno => ajax('/admin/queryUserInfo', { bno }, 'GET')
 export const resetUserPassword = (newPassword, bno) => ajax('/admin/resetUserPassword', { newPassword, bno }, 'GET')
 // 查询余额
 export const queryBalance = bno => ajax('/admin/queryBalance', { bno }, 'GET')
 // 查询历史交易记录
-export const queryUserTrans = (bno, time) => ajax('/admin/queryUserTrans', { bno, time }, 'GET')
-export const queryBankTrans = (time) => ajax('/admin/queryBankTrans', { time }, 'GET')
+export const queryUserTrans = (bno, startTime, endTime) => ajax('/admin/queryUserTrans', { bno, startTime, endTime }, 'GET')
+export const queryBankTrans = (startTime, endTime) => ajax('/admin/queryBankTrans', { startTime, endTime }, 'GET')
 // 查询所有用户
 export const queryAllUser = () => ajax('/admin/queryAllUser', {}, 'GET')

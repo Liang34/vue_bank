@@ -3,15 +3,17 @@
         <div class="form1">
           <el-button @click="back">返回</el-button>
           <el-input v-model="bno" placeholder="请输入需要查询的账号"  class="input" oninput="value=value.replace(/[^\d]/g,'')"></el-input>
-          <el-select v-model="times" placeholder="请选择交易的时间" class="input">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-          </el-select>
-          <el-button @click="submit">提交</el-button>
+          <el-date-picker
+            v-model="value2"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="pickerOptions">
+          </el-date-picker>
+          <el-button @click="submit" class="su">提交</el-button>
         </div>
     <el-table :data="tableData" border height="450">
       <el-table-column
@@ -50,8 +52,6 @@ export default {
   data () {
     return {
       bno: '',
-      times: '',
-      isShow: true,
       options: [
         {
           value: '0',
@@ -75,15 +75,62 @@ export default {
         //   Poundage: '100',
         //   Tartget: '1234567891234567891'
         // }
-      ]
+      ],
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        }]
+      },
+      value2: ''
     }
   },
   methods: {
+    dateFormat (fmt, date) {
+      let ret
+      const opt = {
+        'Y+': date.getFullYear().toString(), // 年
+        'm+': (date.getMonth() + 1).toString(), // 月
+        'd+': date.getDate().toString(), // 日
+        'H+': date.getHours().toString(), // 时
+        'M+': date.getMinutes().toString(), // 分
+        'S+': date.getSeconds().toString() // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+      }
+      for (const k in opt) {
+        ret = new RegExp('(' + k + ')').exec(fmt)
+        if (ret) {
+          fmt = fmt.replace(ret[1], (ret[1].length === 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, '0')))
+        }
+      }
+      return fmt
+    },
     back () {
       this.$router.back()
     },
     async submit () {
-      if (!this.times || this.bno.trim().length !== 19) {
+      if (this.value2.length !== 2 || this.bno.trim().length !== 19) {
         this.$alert('请输入正确的账号及选择正确的交易时间', '错误', {
           confirmButtonText: '确定'
         })
@@ -103,7 +150,9 @@ export default {
       //   startTime = new Date(endDate - 1000 * 60 * 60 * 24 * 365)
       //   console.log(startTime)
       // }
-      const res = await queryUserTrans(this.bno, this.times)
+      this.value2[0] = this.dateFormat('YYYY-mm-dd HH:MM', this.value2[0])
+      this.value2[1] = this.dateFormat('YYYY-mm-dd HH:MM', this.value2[1])
+      const res = await queryUserTrans(this.bno, this.value2[0], this.value2[1])
       if (res.code === '0') {
         this.isShow = false
         if (res.data.t) {
@@ -160,8 +209,8 @@ export default {
   width: 1000px;
 }
 
-.el-select {
-  margin-right: 20px;
+.el-date-picker {
+  margin-right: 40px;
   margin-left: 20px;
 }
 
@@ -170,5 +219,7 @@ export default {
   display: inline-block;
   width: 300px;
 }
-
+.su {
+  margin-left: 20px;
+}
 </style>

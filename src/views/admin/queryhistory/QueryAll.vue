@@ -4,14 +4,16 @@
     <div class="warp">
         <div class="form1">
           <el-button @click="back">返回</el-button>
-          <el-select v-model="times" placeholder="请选择交易的时间">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+          <el-date-picker
+            v-model="value2"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="pickerOptions">
+          </el-date-picker>
         <el-button @click="submit">提交</el-button>
         </div>
     <el-table
@@ -71,26 +73,58 @@ export default {
         //   Orign: '1234567891234567892'
         // }
       ],
-      options: [
-        {
-          value: '0',
-          label: '近一周的交易'
-        },
-        {
-          value: '1',
-          label: '近一月的交易'
-        },
-        {
-          value: '2',
-          label: '近一年的交易'
-        }
-      ],
-      times: ''
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        }]
+      },
+      value2: ''
     }
   },
   methods: {
+    dateFormat (fmt, date) {
+      let ret
+      const opt = {
+        'Y+': date.getFullYear().toString(), // 年
+        'm+': (date.getMonth() + 1).toString(), // 月
+        'd+': date.getDate().toString(), // 日
+        'H+': date.getHours().toString(), // 时
+        'M+': date.getMinutes().toString(), // 分
+        'S+': date.getSeconds().toString() // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+      }
+      for (const k in opt) {
+        ret = new RegExp('(' + k + ')').exec(fmt)
+        if (ret) {
+          fmt = fmt.replace(ret[1], (ret[1].length === 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, '0')))
+        }
+      }
+      return fmt
+    },
     async submit () {
-      if (!this.times) {
+      if (this.value2.length !== 2) {
         this.$alert('请选择正确的交易时间', '错误', {
           confirmButtonText: '确定'
         })
@@ -110,7 +144,9 @@ export default {
       //   startTime = new Date(endDate - 1000 * 60 * 60 * 24 * 365)
       //   console.log(startTime)
       // }
-      const res = await queryBankTrans(this.times)
+      this.value2[0] = this.dateFormat('YYYY-mm-dd HH:MM', this.value2[0])
+      this.value2[1] = this.dateFormat('YYYY-mm-dd HH:MM', this.value2[1])
+      const res = await queryBankTrans(this.value2[0], this.value2[1])
       if (res.code === '0') {
         if (res.data.t) {
           const tempArr = res.data.t
@@ -165,7 +201,7 @@ export default {
   width: 600px;
   display: block;
 }
-.el-select {
+.el-button {
   margin-right: 20px;
   margin-left: 20px;
 }

@@ -5,11 +5,12 @@
       <h3 class="titleS">请选择你要进行的操作</h3>
       <div class="funwarp">
           <div class="card" @click="kaihu"><div class="img"></div>开户</div>
-          <div class="card" @click="xiaohu"><div class="img"></div>销户</div>
+          <!-- <div class="card" @click="xiaohu"><div class="img"></div>销户</div>
           <div class="card" @click="guashi"><div class="img"></div>挂失</div>
           <div class="card" @click="jiegua"><div class="img"></div>解挂</div>
           <div class="card" @click="dongjie"><div class="img"></div>冻结</div>
-          <div class="card" @click="jiedong"><div class="img"></div>解冻</div>
+          <div class="card" @click="jiedong"><div class="img"></div>解冻</div> -->
+          <div class="card" @click="update"><div class="img"></div>更新状态</div>
           <div class="card" @click="xiugaimima"><div class="img"></div>修改密码</div>
           <div class="card" @click="chaxunyuer"><div class="img"></div>查询余额</div>
           <div class="card" @click="lishijiaoyi"><div class="img"></div>历史交易查询</div>
@@ -37,20 +38,23 @@ export default {
     kaihu () {
       this.$router.push('/kaihu')
     },
-    xiaohu () {
-      this.$router.push('/xiaohu')
-    },
-    guashi () {
-      this.$router.push('/guashi')
-    },
-    jiegua () {
-      this.$router.push('/jiegua')
-    },
-    dongjie () {
-      this.$router.push('/dongjie')
-    },
-    jiedong () {
-      this.$router.push('/jiedong')
+    // xiaohu () {
+    //   this.$router.push('/xiaohu')
+    // },
+    // guashi () {
+    //   this.$router.push('/guashi')
+    // },
+    // jiegua () {
+    //   this.$router.push('/jiegua')
+    // },
+    // dongjie () {
+    //   this.$router.push('/dongjie')
+    // },
+    // jiedong () {
+    //   this.$router.push('/jiedong')
+    // },
+    update () {
+      this.$router.push('/update')
     },
     xiugaimima () {
       this.$router.push('/xiugaimima')
@@ -90,8 +94,7 @@ export default {
   display: flex;
   position: relative;
   top: 90px;
-  // margin-top: 20px;
-  margin-right: 10px;
+  justify-content: center;
 }
 .card {
   width: 160px;

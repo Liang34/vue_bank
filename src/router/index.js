@@ -7,7 +7,6 @@ import GetMoneny from '../views/get-moneny/GetMoneny'
 import SaveMoneny from '../views/save-moneny/SaveMoneny'
 import Transform from '../views/transform/Transform'
 import QueryBalance from '../views/query-balance/QueryBalance'
-import QueryTrans from '../views/query-trans/QueryTrans'
 import EditPassWord from '../views/edit-password/EditPassoword'
 import QueryDetails from '../views/query-details/QueryDetails'
 import NewPassowrd from '../views/new-password/NewPassword'
@@ -15,12 +14,12 @@ import transformMoneny from '../views/transform_moneny/transformMoneny'
 // 管理员页面
 import AdminLogin from '../views/admin/admin-login/AdminLogin'
 import AdminMain from '../views/admin/admin-main/AdminMain'
-import KaiHu from '../views/admin/kaihu/KaiHu'
-import XiaoHu from '../views/admin/xiaohu/XiaoHu'
-import GuaShi from '../views/admin/guashi/GuaShi'
-import JieGua from '../views/admin/jiegua/JieGua'
-import DongJie from '../views/admin/dongjie/DongJie'
-import JieDong from '../views/admin/jiedong/JieDong'
+// import KaiHu from '../views/admin/kaihu/KaiHu'
+// import XiaoHu from '../views/admin/xiaohu/XiaoHu'
+// import GuaShi from '../views/admin/guashi/GuaShi'
+// import JieGua from '../views/admin/jiegua/JieGua'
+// import DongJie from '../views/admin/dongjie/DongJie'
+import UpDate from '../views/admin/update/update'
 import XiuGaiMiMa from '../views/admin/xiugaimima/XiuGaiMiMa'
 import chaxunyuer from '../views/admin/chaxunyuer/chaxunyuer'
 import QueryHistory from '../views/admin/queryhistory/QueryHistory'
@@ -71,17 +70,12 @@ const routes = [
     component: QueryBalance
   },
   {
-    path: '/queryTrans',
-    name: 'QueryTrans',
-    component: QueryTrans
-  },
-  {
     path: '/editPassowrd',
     name: 'EditPassWord',
     component: EditPassWord
   },
   {
-    path: '/queryTrans/details:times',
+    path: '/queryTrans/details',
     name: 'QueryDetails',
     component: QueryDetails
   },
@@ -104,36 +98,36 @@ const routes = [
     name: 'AdminMain',
     component: AdminMain
   },
-  {
-    path: '/kaihu',
-    name: 'KaiHu',
-    component: KaiHu
-  },
-  {
-    path: '/xiaohu',
-    name: 'XiaoHu',
-    component: XiaoHu
-  },
-  {
-    path: '/JieGua',
-    name: 'JieGua',
-    component: JieGua
-  },
-  {
-    path: '/guashi',
-    name: '',
-    component: GuaShi
-  },
-  {
-    path: '/dongjie',
-    name: '',
-    component: DongJie
-  },
-  {
-    path: '/jiedong',
-    name: 'JieDong',
-    component: JieDong
-  },
+  // {
+  //   path: '/kaihu',
+  //   name: 'KaiHu',
+  //   component: KaiHu
+  // },
+  // {
+  //   path: '/xiaohu',
+  //   name: 'XiaoHu',
+  //   component: XiaoHu
+  // },
+  // {
+  //   path: '/JieGua',
+  //   name: 'JieGua',
+  //   component: JieGua
+  // },
+  // {
+  //   path: '/guashi',
+  //   name: '',
+  //   component: GuaShi
+  // },
+  // {
+  //   path: '/dongjie',
+  //   name: '',
+  //   component: DongJie
+  // },
+  // {
+  //   path: '/jiedong',
+  //   name: 'JieDong',
+  //   component: JieDong
+  // },
   {
     path: '/xiugaimima',
     component: XiuGaiMiMa
@@ -157,6 +151,10 @@ const routes = [
   {
     path: '/queryAllUser',
     component: QueryAllUser
+  },
+  {
+    path: '/update',
+    component: UpDate
   }
 ]
 

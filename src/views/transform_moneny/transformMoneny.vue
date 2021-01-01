@@ -33,12 +33,6 @@
       <el-button @click="comfirm">确&nbsp;定</el-button>
     </el-aside>
   </el-container>
-  <!-- <el-container v-if="!isShow">
-    <el-main>
-      <h3>转账中，请稍后</h3>
-      <img src="./money.gif" alt="moneny"/>
-    </el-main>
-  </el-container> -->
   <Footer @selectNum="inputNum" @selectOpt="selectOpt"/>
  </div>
 </template>

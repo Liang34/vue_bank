@@ -2,6 +2,17 @@
 <template>
 <div>
     <div class="warp">
+    <el-main>
+      <el-select v-model="value" placeholder="请选择" @change="select()">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+    </el-main>
     <el-table :data="tableData" border height="400">
     <el-table-column
       prop="Tno"
@@ -44,6 +55,21 @@ import { queryTrans } from '../../api/user/option'
 export default {
   data () {
     return {
+      options: [
+        {
+          value: '0',
+          label: '近一周的交易'
+        },
+        {
+          value: '1',
+          label: '近一月的交易'
+        },
+        {
+          value: '2',
+          label: '近一年的交易'
+        }
+      ],
+      value: '',
       tableData: [
         // {
         //   Tno: '2016-05-02',
@@ -56,49 +82,67 @@ export default {
       ]
     }
   },
-  async mounted () {
-    // const endDate = new Date()
-    // let startTime = null
-    // console.log(endDate)
-    // if (this.$route.params.times === '0') { // 进一周
-    //   startTime = new Date(endDate - 1000 * 60 * 60 * 24 * 7)
-    //   console.log(startTime)
-    // } else if (this.$route.params.times === '1') { // 近一月
-    //   // 获取三十天前日期
-    //   startTime = new Date(endDate - 1000 * 60 * 60 * 24 * 30) // 最后一个数字30可改，30天的意思
-    //   console.log(startTime)
-    // } else if (this.$route.params.times === '2') { // 近一年
-    //   startTime = new Date(endDate - 1000 * 60 * 60 * 24 * 365)
-    //   console.log(startTime)
-    // }
-    const res = await queryTrans(this.$route.params.times)
-    if (res.code === '0') {
-      if (res.data.t) {
-        const tempArr = res.data.t
-        console.log(tempArr)
-        for (let i = 0; i < tempArr.length; i++) {
-          const temp = {}
-          temp.Tno = tempArr[i].tno
-          if (tempArr[i].ttype === '0') {
-            temp.Ttype = '取款'
-          } else if (tempArr[i].ttype === '1') {
-            temp.Ttype = '存款'
-          } else if (tempArr[i].ttype === '2') {
-            temp.Ttype = '转入金额'
-          } else if (tempArr[i].ttype === '3') {
-            temp.Ttype = '转出金额'
+  methods: {
+    async select () {
+      console.log(this.value)
+      const res = await queryTrans(this.value)
+      if (res.code === '0') {
+        if (res.data.t) {
+          const tempArr = res.data.t
+          console.log(tempArr)
+          for (let i = 0; i < tempArr.length; i++) {
+            const temp = {}
+            temp.Tno = tempArr[i].tno
+            if (tempArr[i].ttype === '0') {
+              temp.Ttype = '取款'
+            } else if (tempArr[i].ttype === '1') {
+              temp.Ttype = '存款'
+            } else if (tempArr[i].ttype === '2') {
+              temp.Ttype = '转入金额'
+            } else if (tempArr[i].ttype === '3') {
+              temp.Ttype = '转出金额'
+            }
+            temp.Tamount = tempArr[i].tamount
+            // 格式化时间
+            console.log(tempArr[i].ttime.split('T'))
+            temp.Ttime = tempArr[i].ttime.split('T')[0].split('-')[0] + '年' + tempArr[i].ttime.split('T')[0].split('-')[1] + '月' + tempArr[i].ttime.split('T')[0].split('-')[2] + '日' + tempArr[i].ttime.split('T')[1].split(':')[0] + '时' + tempArr[i].ttime.split('T')[1].split(':')[1] + '分'
+            temp.Poundage = tempArr[i].poundage
+            temp.Tartget = tempArr[i].target
+            this.tableData.push(temp)
           }
-          temp.Tamount = tempArr[i].tamount
-          // 格式化时间
-          console.log(tempArr[i].ttime.split('T'))
-          temp.Ttime = tempArr[i].ttime.split('T')[0].split('-')[0] + '年' + tempArr[i].ttime.split('T')[0].split('-')[1] + '月' + tempArr[i].ttime.split('T')[0].split('-')[2] + '日' + tempArr[i].ttime.split('T')[1].split(':')[0] + '时' + tempArr[i].ttime.split('T')[1].split(':')[1] + '分'
-          temp.Poundage = tempArr[i].poundage
-          temp.Tartget = tempArr[i].target
-          this.tableData.push(temp)
         }
       }
     }
   },
+  // async mounted () {
+  //   const res = await queryTrans(this.value)
+  //   if (res.code === '0') {
+  //     if (res.data.t) {
+  //       const tempArr = res.data.t
+  //       console.log(tempArr)
+  //       for (let i = 0; i < tempArr.length; i++) {
+  //         const temp = {}
+  //         temp.Tno = tempArr[i].tno
+  //         if (tempArr[i].ttype === '0') {
+  //           temp.Ttype = '取款'
+  //         } else if (tempArr[i].ttype === '1') {
+  //           temp.Ttype = '存款'
+  //         } else if (tempArr[i].ttype === '2') {
+  //           temp.Ttype = '转入金额'
+  //         } else if (tempArr[i].ttype === '3') {
+  //           temp.Ttype = '转出金额'
+  //         }
+  //         temp.Tamount = tempArr[i].tamount
+  //         // 格式化时间
+  //         console.log(tempArr[i].ttime.split('T'))
+  //         temp.Ttime = tempArr[i].ttime.split('T')[0].split('-')[0] + '年' + tempArr[i].ttime.split('T')[0].split('-')[1] + '月' + tempArr[i].ttime.split('T')[0].split('-')[2] + '日' + tempArr[i].ttime.split('T')[1].split(':')[0] + '时' + tempArr[i].ttime.split('T')[1].split(':')[1] + '分'
+  //         temp.Poundage = tempArr[i].poundage
+  //         temp.Tartget = tempArr[i].target
+  //         this.tableData.push(temp)
+  //       }
+  //     }
+  //   }
+  // },
   components: {
     Footer
   }
@@ -133,7 +177,7 @@ export default {
 }
 .el-table {
   position: absolute;
-  top: 150px;
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
   width: 800px;
@@ -159,5 +203,9 @@ export default {
   border-radius: 15px;
   background-color: rgb(99, 69, 233);
   color: white;
+}
+.el-select {
+  position: relative;
+  left: 40%;
 }
 </style>
