@@ -14,7 +14,7 @@ import transformMoneny from '../views/transform_moneny/transformMoneny'
 // 管理员页面
 import AdminLogin from '../views/admin/admin-login/AdminLogin'
 import AdminMain from '../views/admin/admin-main/AdminMain'
-// import KaiHu from '../views/admin/kaihu/KaiHu'
+import KaiHu from '../views/admin/kaihu/KaiHu'
 // import XiaoHu from '../views/admin/xiaohu/XiaoHu'
 // import GuaShi from '../views/admin/guashi/GuaShi'
 // import JieGua from '../views/admin/jiegua/JieGua'
@@ -98,11 +98,11 @@ const routes = [
     name: 'AdminMain',
     component: AdminMain
   },
-  // {
-  //   path: '/kaihu',
-  //   name: 'KaiHu',
-  //   component: KaiHu
-  // },
+  {
+    path: '/kaihu',
+    name: 'KaiHu',
+    component: KaiHu
+  },
   // {
   //   path: '/xiaohu',
   //   name: 'XiaoHu',
